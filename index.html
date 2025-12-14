@@ -7,7 +7,7 @@
   <meta name="description" content="Venicura reduces front-desk workload with structured intake, a staff inbox/board, and patient wait-time updates. Free for patients. No medical advice." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -21,8 +21,17 @@
 
   <header class="header">
     <div class="wrap header-inner">
+      <!-- LEFT (mobile): hamburger -->
+      <button class="menuBtn" id="menuBtn" type="button"
+        aria-label="Open menu"
+        aria-controls="menuPanel"
+        aria-expanded="false">
+        <span class="menuLine l1"></span>
+        <span class="menuLine l2"></span>
+      </button>
+
+      <!-- CENTER: brand -->
       <a class="brand" href="#top" aria-label="Venicura home">
-        <!-- Inline SVG LOGO -->
         <svg class="logo" width="34" height="34" viewBox="0 0 48 48" fill="none" aria-hidden="true">
           <defs>
             <linearGradient id="vB" x1="6" y1="6" x2="42" y2="42" gradientUnits="userSpaceOnUse">
@@ -45,33 +54,30 @@
         <span class="badge">Under construction</span>
       </a>
 
-      <nav class="nav" aria-label="Primary navigation">
-  <a href="#what">About</a>
-  <a href="#services">Services</a>
-  <a href="#inbox">Staff Board</a>
-  <a href="#pricing">Pricing</a>
-</nav>
-
-<!-- Mobile menu button -->
-<button class="menuBtn" id="menuBtn" type="button" aria-label="Open menu" aria-controls="menuPanel" aria-expanded="false">
-  <span class="menuLine l1"></span>
-  <span class="menuLine l2"></span>
-</button>
-
-<!-- Mobile menu overlay + panel -->
-<div class="menuOverlay" id="menuOverlay" hidden></div>
-
-<div class="menuPanel" id="menuPanel" hidden>
-  <a class="menuLink" href="#what">About</a>
-  <a class="menuLink" href="#services">Services</a>
-  <a class="menuLink" href="#inbox">Staff Board</a>
-  <a class="menuLink" href="#pricing">Pricing</a>
-</div>
-
+      <!-- RIGHT: theme -->
       <div class="headerRight">
         <button class="iconBtn" id="themeBtn" type="button" aria-label="Toggle theme">
           <span id="themeIcon">☾</span>
         </button>
+      </div>
+
+      <!-- Desktop nav -->
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#what">About</a>
+        <a href="#services">Services</a>
+        <a href="#inbox">Staff Board</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+
+      <!-- Mobile blur overlay -->
+      <div class="menuOverlay" id="menuOverlay" hidden></div>
+
+      <!-- Mobile menu panel -->
+      <div class="menuPanel" id="menuPanel" hidden>
+        <a class="menuLink" href="#what">About</a>
+        <a class="menuLink" href="#services">Services</a>
+        <a class="menuLink" href="#inbox">Staff Board</a>
+        <a class="menuLink" href="#pricing">Pricing</a>
       </div>
     </div>
   </header>
@@ -261,7 +267,6 @@
         </div>
       </div>
 
-      <!-- Mobile-only notice -->
       <p class="boardNoticeMobile reveal">
         The Staff Board preview is optimized for tablet and desktop screens.
         Please view on a larger device to see the full workflow layout.
@@ -379,8 +384,6 @@
             </div>
           </div>
         </div>
-
-        
       </div>
 
       <div class="notice reveal">
@@ -388,7 +391,6 @@
       </div>
     </section>
 
-    <!-- PRICING (kept simple as you have it right now) -->
     <section id="pricing" class="section center soft">
       <div class="sectionHead reveal">
         <div class="kicker2">PRICING</div>
@@ -409,33 +411,30 @@
     </section>
 
     <footer class="footer center">
-  <div class="footerTop">
-    <div class="footerBrand">
-      © <span id="year"></span> Venicura
-    </div>
-    <div class="footerTagline">
-      Operational intake software for healthcare
-    </div>
-  </div>
+      <div class="footerTop">
+        <div class="footerBrand">© <span id="year"></span> Venicura</div>
+        <div class="footerTagline">Operational intake software for healthcare</div>
+      </div>
 
-  <div class="footerLinks">
-    <a href="/privacy.html">Privacy Policy</a>
-    <span>•</span>
-    <a href="/terms.html">Terms of Service</a>
-    <span>•</span>
-    <a href="/security.html">Security</a>
-    <span>•</span>
-    <a href="/compliance.html">Compliance</a>
-  </div>
+      <div class="footerLinks">
+        <a href="/privacy.html">Privacy Policy</a>
+        <span>•</span>
+        <a href="/terms.html">Terms of Service</a>
+        <span>•</span>
+        <a href="/security.html">Security</a>
+        <span>•</span>
+        <a href="/compliance.html">Compliance</a>
+      </div>
 
-  <div class="footerLegal">
-    Venicura provides operational intake and communication tools only.
-    No medical advice, diagnosis, or treatment is provided.
-    Patients never pay for Venicura services.
-  </div>
-</footer>
+      <div class="footerLegal">
+        Venicura provides operational intake and communication tools only.
+        No medical advice, diagnosis, or treatment is provided.
+        Patients never pay for Venicura services.
+      </div>
+    </footer>
   </main>
-<button id="backToTop" aria-label="Back to top">↑</button>
+
+  <button id="backToTop" aria-label="Back to top">↑</button>
   <script src="js/script.js"></script>
 </body>
 </html>

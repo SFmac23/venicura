@@ -41,7 +41,7 @@ const icon = document.getElementById("themeIcon");
 function setTheme(t){
   root.setAttribute("data-theme", t);
   localStorage.setItem("venicura_theme", t);
-  icon.textContent = (t === "dark") ? "☾" : "☀";
+  if (icon) icon.textContent = (t === "dark") ? "☾" : "☀";
 }
 setTheme(localStorage.getItem("venicura_theme") || root.getAttribute("data-theme") || "dark");
 btn?.addEventListener("click", () => {
@@ -50,19 +50,15 @@ btn?.addEventListener("click", () => {
 });
 
 // Year
-document.getElementById("year").textContent = new Date().getFullYear();
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 /* =========================
    Staff Board Drag + Drop
    ========================= */
 let dragged = null;
 
-function isTicket(el) {
-  return el && el.classList && el.classList.contains("ticket");
-}
-
 document.querySelectorAll(".ticket").forEach((ticket) => {
-  // Desktop drag
   ticket.addEventListener("dragstart", (e) => {
     dragged = ticket;
     ticket.classList.add("dragging");
@@ -76,7 +72,6 @@ document.querySelectorAll(".ticket").forEach((ticket) => {
     document.querySelectorAll(".boardCol").forEach(c => c.classList.remove("drop-target"));
   });
 
-  // Touch + mobile: pointer-based dragging
   ticket.addEventListener("pointerdown", (e) => {
     ticket.setPointerCapture(e.pointerId);
     ticket.dataset.pointerDragging = "1";
@@ -94,14 +89,12 @@ document.querySelectorAll(".ticket").forEach((ticket) => {
 
   ticket.addEventListener("pointermove", (e) => {
     if (!ticket.dataset.pointerDragging) return;
-
     const col = document.elementFromPoint(e.clientX, e.clientY)?.closest(".boardCol");
     document.querySelectorAll(".boardCol").forEach(c => c.classList.remove("drop-target"));
     if (col) col.classList.add("drop-target");
   });
 });
 
-// Column drop zones
 document.querySelectorAll(".boardCol").forEach((col) => {
   col.addEventListener("dragover", (e) => {
     e.preventDefault();
@@ -119,47 +112,70 @@ document.querySelectorAll(".boardCol").forEach((col) => {
     if (dragged) col.appendChild(dragged);
   });
 
-  // Touch drop: on pointerup, move into hovered column
   col.addEventListener("pointerup", () => {
     if (!dragged) return;
-    // Only move if it's in pointer-drag mode
     if (!dragged.dataset.pointerDragging) return;
     col.appendChild(dragged);
     col.classList.remove("drop-target");
   });
 });
 
-
+/* =========================
+   Mobile Menu (FIXED)
+   - Hamburger -> X  (your #3)
+   - Locks scroll + blocks clicks behind (your #4)
+   - iOS-safe scroll lock (prevents “stuck at top” bug)
+   ========================= */
 (() => {
-  const btn = document.getElementById("menuBtn");
+  const menuBtn = document.getElementById("menuBtn");
   const panel = document.getElementById("menuPanel");
   const overlay = document.getElementById("menuOverlay");
+  if (!menuBtn || !panel || !overlay) return;
 
-  if (!btn || !panel || !overlay) return;
+  let scrollY = 0;
+
+  const lockScroll = () => {
+    scrollY = window.scrollY || 0;
+    document.body.classList.add("menuLocked");
+    document.body.style.top = `-${scrollY}px`;
+  };
+
+  const unlockScroll = () => {
+    document.body.classList.remove("menuLocked");
+    document.body.style.top = "";
+    window.scrollTo(0, scrollY);
+  };
 
   const openMenu = () => {
     document.documentElement.classList.add("menuOpen");
+    menuBtn.setAttribute("aria-expanded", "true");
+
     panel.hidden = false;
     overlay.hidden = false;
+
+    lockScroll();
+
     requestAnimationFrame(() => {
       panel.classList.add("open");
       overlay.classList.add("open");
     });
-    btn.setAttribute("aria-expanded", "true");
   };
 
   const closeMenu = () => {
     document.documentElement.classList.remove("menuOpen");
+    menuBtn.setAttribute("aria-expanded", "false");
+
     panel.classList.remove("open");
     overlay.classList.remove("open");
-    btn.setAttribute("aria-expanded", "false");
+
     setTimeout(() => {
       panel.hidden = true;
       overlay.hidden = true;
+      unlockScroll();
     }, 180);
   };
 
-  btn.addEventListener("click", () => {
+  menuBtn.addEventListener("click", () => {
     const isOpen = document.documentElement.classList.contains("menuOpen");
     isOpen ? closeMenu() : openMenu();
   });
@@ -175,41 +191,13 @@ document.querySelectorAll(".boardCol").forEach((col) => {
   });
 })();
 
-
-
-const menuBtn = document.getElementById("menuBtn");
-const mobileMenu = document.getElementById("mobileMenu");
-const menuOverlay = document.getElementById("menuOverlay"); // the blurred overlay div
-
-function openMenu(){
-  document.body.classList.add("menuOpen");
-  mobileMenu.classList.add("open");
-  menuOverlay.classList.add("open");
-}
-
-function closeMenu(){
-  document.body.classList.remove("menuOpen");
-  mobileMenu.classList.remove("open");
-  menuOverlay.classList.remove("open");
-}
-
-menuBtn?.addEventListener("click", () => {
-  const isOpen = document.body.classList.contains("menuOpen");
-  isOpen ? closeMenu() : openMenu();
-});
-
-menuOverlay?.addEventListener("click", closeMenu);
-
+/* Back to top */
 const backToTop = document.getElementById("backToTop");
-
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 320) {
-    backToTop.classList.add("show");
-  } else {
-    backToTop.classList.remove("show");
-  }
+  if (!backToTop) return;
+  if (window.scrollY > 320) backToTop.classList.add("show");
+  else backToTop.classList.remove("show");
 });
-
-backToTop.addEventListener("click", () => {
+backToTop?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
