@@ -120,76 +120,62 @@ document.querySelectorAll(".boardCol").forEach((col) => {
   });
 });
 
-/* =========================
-   Mobile Menu (FIXED)
-   - Hamburger -> X  (your #3)
-   - Locks scroll + blocks clicks behind (your #4)
-   - iOS-safe scroll lock (prevents “stuck at top” bug)
-   ========================= */
+// =========================
+// Mobile Menu (single source of truth)
+// =========================
 (() => {
-  const menuBtn = document.getElementById("menuBtn");
+  const btn = document.getElementById("menuBtn");
   const panel = document.getElementById("menuPanel");
   const overlay = document.getElementById("menuOverlay");
-  if (!menuBtn || !panel || !overlay) return;
 
-  let scrollY = 0;
-
-  const lockScroll = () => {
-    scrollY = window.scrollY || 0;
-    document.body.classList.add("menuLocked");
-    document.body.style.top = `-${scrollY}px`;
-  };
-
-  const unlockScroll = () => {
-    document.body.classList.remove("menuLocked");
-    document.body.style.top = "";
-    window.scrollTo(0, scrollY);
-  };
+  if (!btn || !panel || !overlay) return;
 
   const openMenu = () => {
     document.documentElement.classList.add("menuOpen");
-    menuBtn.setAttribute("aria-expanded", "true");
+    document.body.classList.add("menuOpen");
 
     panel.hidden = false;
     overlay.hidden = false;
 
-    lockScroll();
+    // force reflow so transitions work
+    panel.offsetHeight;
 
-    requestAnimationFrame(() => {
-      panel.classList.add("open");
-      overlay.classList.add("open");
-    });
+    panel.classList.add("open");
+    overlay.classList.add("open");
+
+    btn.setAttribute("aria-expanded", "true");
   };
 
   const closeMenu = () => {
     document.documentElement.classList.remove("menuOpen");
-    menuBtn.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("menuOpen");
 
     panel.classList.remove("open");
     overlay.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
 
     setTimeout(() => {
       panel.hidden = true;
       overlay.hidden = true;
-      unlockScroll();
     }, 180);
   };
 
-  menuBtn.addEventListener("click", () => {
-    const isOpen = document.documentElement.classList.contains("menuOpen");
+  btn.addEventListener("click", () => {
+    const isOpen = document.body.classList.contains("menuOpen");
     isOpen ? closeMenu() : openMenu();
   });
 
   overlay.addEventListener("click", closeMenu);
 
   panel.addEventListener("click", (e) => {
-    if (e.target.matches("a")) closeMenu();
+    if (e.target.closest("a")) closeMenu();
   });
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeMenu();
   });
 })();
+
 
 /* Back to top */
 const backToTop = document.getElementById("backToTop");
