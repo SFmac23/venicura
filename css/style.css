@@ -713,11 +713,12 @@ body.menuOpen{
   .hero{ padding-top: 56px !important; padding-bottom: 40px; }
 
   /* one-line hero title */
-  .hero h1{
-    white-space: nowrap;
-    font-size: 30px;
+    .hero h1{
+    white-space: nowrap;              /* still one line */
+    font-size: clamp(22px, 6.2vw, 30px); /* auto-shrinks to fit small screens */
     line-height: 1.1;
-    margin-top: 8px !important;
+    letter-spacing: -0.03em;
+    max-width: 100%;
   }
   .hero h1 br{ display:none; }
 
