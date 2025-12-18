@@ -1,0 +1,219 @@
+:root{
+  --bg0:#07080b;
+  --bg1:#0b0f18;
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.62);
+  --stroke:rgba(255,255,255,.14);
+  --shadow: 0 28px 90px rgba(0,0,0,.60);
+  --r: 22px;
+
+  /* SOLID surfaces */
+  --cardSolid:#0e1220;
+  --paneSolid:#0f1322;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  color: var(--text);
+  background:
+    radial-gradient(1000px 700px at 15% 10%, rgba(255,255,255,.06), transparent 60%),
+    radial-gradient(900px 650px at 90% 18%, rgba(99,102,241,.18), transparent 62%),
+    radial-gradient(900px 650px at 0% 65%, rgba(20,184,166,.14), transparent 62%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+}
+
+.top{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 22px 16px 8px;
+}
+
+.kicker{
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: rgba(255,255,255,.45);
+  font-weight: 800;
+}
+
+.h1{
+  margin: 8px 0 6px;
+  font-size: 30px;
+  letter-spacing: -0.45px;
+}
+
+.sub{
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.wrap{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px 16px 34px;
+}
+
+.rail{
+  display:grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items:center;
+  gap: 10px;
+}
+
+@media (max-width: 760px){
+  .rail{ grid-template-columns: 1fr; }
+}
+
+/* Thin arrows (desktop/tablet only) */
+.nav{
+  height: 44px;
+  width: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  cursor:pointer;
+  font-size: 26px;
+  line-height: 0;
+  display:grid;
+  place-items:center;
+  opacity: .9;
+  transition: transform .15s ease, opacity .15s ease;
+}
+.nav:hover{ transform: translateY(-1px); opacity: 1; }
+
+@media (max-width: 760px){
+  .nav{ display:none; }
+}
+
+/* Stage = stacked cards */
+.stage{
+  position: relative;
+  height: min(72vw, 560px);
+  max-height: 560px;
+  min-height: 420px;
+  touch-action: pan-y;
+}
+
+/* SOLID card */
+.card{
+  position:absolute;
+  inset: 0;
+  margin: 0 auto;
+  width: min(520px, 86vw);
+  height: min(520px, 86vw);
+  max-width: 520px;
+  max-height: 520px;
+
+  border-radius: var(--r);
+  border: 1px solid var(--stroke);
+  background: var(--cardSolid);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+
+  transform-origin: center;
+  transition: transform .35s ease, opacity .35s ease;
+  will-change: transform, opacity;
+}
+
+/* Inner content */
+.card-top{
+  padding: 16px 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+
+.title{
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  font-size: 16px;
+}
+
+.split{
+  padding: 14px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  height: calc(100% - 58px);
+}
+
+@media (max-width: 520px){
+  .split{ grid-template-columns: 1fr; }
+}
+
+/* SOLID panes */
+.pane{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: var(--paneSolid);
+  padding: 14px;
+}
+
+.pane.after{
+  background: linear-gradient(135deg, #141f3a, #1a2550);
+}
+
+.tag{
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.50);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.line{
+  font-size: 14px;
+  font-weight: 850;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+
+.mini{
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* Dots (improved visibility, especially on mobile) */
+.dots{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top: 16px;
+
+  /* optional: helps visibility on dark backgrounds */
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+}
+
+.dot{
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.30);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12);
+  transition: transform .2s ease, background .2s ease;
+}
+
+.dot.is-on{
+  background: rgba(255,255,255,.92);
+  transform: scale(1.25);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.22),
+    0 8px 20px rgba(99,102,241,.25);
+}
+
+/* Mobile: even bigger */
+@media (max-width: 520px){
+  .dot{ width: 10px; height: 10px; }
+}

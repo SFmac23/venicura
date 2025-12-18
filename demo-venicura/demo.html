@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>See the Difference – Venicura</title>
+  <link rel="stylesheet" href="demo.css" />
+</head>
+<body>
+
+  <header class="top">
+    <div class="kicker">SEE THE KEY DIFFERENCES</div>
+    <h1 class="h1">Before vs After</h1>
+    <p class="sub">A clearer experience for patients and smoother workflows for staff.</p>
+  </header>
+
+  <main class="wrap">
+    <div class="rail" aria-label="Difference cards carousel">
+      <button class="nav left" id="prev" aria-label="Previous card" type="button">‹</button>
+
+      <div class="stage" id="stage">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="card-top"><div class="title">Wait-time visibility</div></div>
+          <div class="split">
+            <section class="pane before">
+              <div class="tag">How it is</div>
+              <div class="line">Wait times are often difficult to understand or estimate.</div>
+              <div class="mini">Patients frequently ask staff for updates.</div>
+            </section>
+            <section class="pane after">
+              <div class="tag">How it becomes</div>
+              <div class="line">Clear, non-medical wait-time updates are shared automatically.</div>
+              <div class="mini">Patients know what stage they’re in without needing to ask.</div>
+            </section>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="card-top"><div class="title">Front desk workload</div></div>
+          <div class="split">
+            <section class="pane before">
+              <div class="tag">How it is</div>
+              <div class="line">Staff handle repeated questions alongside check-ins.</div>
+              <div class="mini">Routine updates compete with higher-priority tasks.</div>
+            </section>
+            <section class="pane after">
+              <div class="tag">How it becomes</div>
+              <div class="line">Common questions are answered through self-service updates.</div>
+              <div class="mini">Staff time is freed for exceptions and in-person care.</div>
+            </section>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="card-top"><div class="title">Intake consistency</div></div>
+          <div class="split">
+            <section class="pane before">
+              <div class="tag">How it is</div>
+              <div class="line">Information is collected across multiple steps and touchpoints.</div>
+              <div class="mini">Details may be repeated or missed under pressure.</div>
+            </section>
+            <section class="pane after">
+              <div class="tag">How it becomes</div>
+              <div class="line">A structured, non-clinical intake flow standardizes basics.</div>
+              <div class="mini">Staff can review consistent summaries before arrival.</div>
+            </section>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <div class="card-top"><div class="title">Patient communication</div></div>
+          <div class="split">
+            <section class="pane before">
+              <div class="tag">How it is</div>
+              <div class="line">Next steps are not always clear to patients.</div>
+              <div class="mini">Updates depend on staff availability.</div>
+            </section>
+            <section class="pane after">
+              <div class="tag">How it becomes</div>
+              <div class="line">Step-based, informational guidance sets expectations.</div>
+              <div class="mini">Communication remains non-diagnostic and purely informational.</div>
+            </section>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card">
+          <div class="card-top"><div class="title">Operational visibility</div></div>
+          <div class="split">
+            <section class="pane before">
+              <div class="tag">How it is</div>
+              <div class="line">Teams respond reactively during peak periods.</div>
+              <div class="mini">Arrival signals are spread across systems.</div>
+            </section>
+            <section class="pane after">
+              <div class="tag">How it becomes</div>
+              <div class="line">Earlier visibility into arrivals and readiness signals.</div>
+              <div class="mini">Operational awareness improves without influencing clinical decisions.</div>
+            </section>
+          </div>
+        </article>
+      </div>
+
+      <button class="nav right" id="next" aria-label="Next card" type="button">›</button>
+    </div>
+
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </main>
+
+  <script src="demo.js"></script>
+</body>
+</html>
